@@ -36,11 +36,13 @@
       <section class="w-100">
         <%- include('../component/navbar.ejs',) %>
 
-        <form class="mx-0 row gx-3 gy-4 mt-3">
+        <form class="mx-0 row gx-3 gy-4 mt-3" action="/user/add.html" method="post">
+
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
-              placeholder="Ali..."
+              name="FirstName"
+              placeholder="enter ur first name "
               type="text"
               class="form-control"
               id="inputfirstName4"
@@ -49,7 +51,8 @@
           <div class="col-md-6">
             <label for="inputlastName4" class="form-label">Last Name:</label>
             <input
-              placeholder="Hassan..."
+              name="LastName"
+              placeholder="Enter ur Last Name"
               type="text"
               class="form-control"
               id="inputlastName4"
@@ -59,7 +62,8 @@
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
             <input
-              placeholder="ali@gmail.com"
+              name="Email"
+              placeholder="Enter ur Email"
               type="email"
               class="form-control"
               id="inputemail4"
@@ -68,7 +72,8 @@
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
             <input
-              placeholder="011987899"
+              name="Telephone"
+              placeholder="Enter ur number Tel"
               type="number"
               class="form-control"
               id="inputtele4"
@@ -79,7 +84,8 @@
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
-                placeholder="Your Age: ..."
+                name="Age" 
+                placeholder="Enter ur Age"
                 type="number"
                 class="form-control"
                 id="inputage4"
@@ -89,12 +95,13 @@
 
           <div>
             <div class="col-md-6">
+              
               <label for="inputCountry" class="form-label">Country:</label>
-              <select id="inputCountry" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
+              <select id="inputCountry" class="form-select" name="Country">
+                <option selected hidden disabled>Choose here Country</option>
 
-                <option>Morocco</option>
-                <option>Egypt</option>
+                <option>Tunisie</option>
+                <option>Italy</option>
               </select>
             </div>
           </div>
@@ -102,8 +109,8 @@
           <div>
             <div class="col-md-6">
               <label for="inputGender" class="form-label">Gender:</label>
-              <select id="inputGender" class="form-select">
-                <option selected hidden disabled>Choose here ...</option>
+              <select id="inputGender" class="form-select" name="Gender">
+                <option selected hidden disabled>Choose here Gender</option>
                 <option>Male</option>
                 <option>Female</option>
               </select>

@@ -4,6 +4,8 @@ const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended :true }));
+
+const Costomer  = require("./models/customerscuma")
 const Mydata =require("./models/myscuma")
 app.set('view engine','ejs')
 app.use(express.static('public'))
@@ -17,6 +19,8 @@ const liveReloadServer = livereload.createServer();
 // Spécifie le répertoire à surveiller (par exemple, "public")
 liveReloadServer.watch(path.join(__dirname, 'public'));
 const connectLivereload = require('connect-livereload');
+const { render } = require("ejs");
+const { redirect } = require("express/lib/response");
 // Ajouter le middleware connect-livereload
 app.use(connectLivereload());
 liveReloadServer.server.once("connection",() => {
@@ -25,10 +29,35 @@ liveReloadServer.server.once("connection",() => {
   },100)
 })
 //*********************************** */
+ // method Post
+ app.post("/user/add.html", (req, res) => {
+     const costomer = new Costomer(req.body)
+     costomer.save().then(() => {
+      res.redirect("/")
+     }).catch(() => {
+      
+     })
+    
+   
+    
+  });
+  
+  
 
 
+
+
+
+ // method Get
 app.get("/", (req, res) => {
-res.render("index",{ });
+  Costomer.find().then((resulet) => {
+    
+    res.render("index",{ arr :resulet});
+  }).catch((err) => {
+    console.log(err)
+  })
+
+
 }
 );
 
@@ -51,6 +80,8 @@ app.get("/user/edit.html", (req, res) => {
   res.render("user/edit");
     }
     );
+
+
 
 
 
