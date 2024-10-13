@@ -21,6 +21,7 @@ liveReloadServer.watch(path.join(__dirname, 'public'));
 const connectLivereload = require('connect-livereload');
 const { render } = require("ejs");
 const { redirect } = require("express/lib/response");
+const Customer = require("./models/customerscuma");
 // Ajouter le middleware connect-livereload
 app.use(connectLivereload());
 liveReloadServer.server.once("connection",() => {
@@ -49,6 +50,35 @@ liveReloadServer.server.once("connection",() => {
 
 
  // method Get
+
+ app.get("/user/add.html", (req, res) => {
+  res.render("user/add");
+  }
+  );
+
+  app.get("/user/edit.html", (req, res) => {
+    res.render("user/edit");
+      }
+      );
+  
+
+
+//affiche par customer par id 
+app.get("/user/:id", (req, res) => {
+  Customer.findById(req.params.id).then((resulet) => {
+    res.render("user/view", {arr:resulet});
+  })
+  
+  .catch((err) => {
+    console.log(err)
+  })
+  
+  }
+  );
+
+
+
+ //affiche tous les datas 
 app.get("/", (req, res) => {
   Costomer.find().then((resulet) => {
     
@@ -61,25 +91,16 @@ app.get("/", (req, res) => {
 }
 );
 
-app.get("/user/add.html", (req, res) => {
-  res.render("user/add");
-  }
-  );
 
-app.get("/user/view.html", (req, res) => {
-    res.render("user/view");
-    }
-    );
 
-app.get("/user/view.html", (req, res) => {
-    res.render("user/view");
-     }
-     );
 
-app.get("/user/edit.html", (req, res) => {
-  res.render("user/edit");
-    }
-    );
+
+ 
+
+
+
+
+
 
 
 
