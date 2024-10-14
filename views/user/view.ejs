@@ -166,12 +166,12 @@
 
             <tr>
               <th scope="row">Created on</th>
-              <td>....</td>
+              <td><%= moment(arr.createdAt ).format("MMM Do YY")%></td>
             </tr>
 
             <tr>
-              <th scope="row">Last Update</th>
-              <td>....</td>
+              <th scope="row">Update on</th>
+              <td><%= moment(arr.updatedAt ).fromNow()%></td>
             </tr>
           </tbody>
         </table>

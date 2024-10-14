@@ -3,86 +3,71 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
-app.use(express.urlencoded({ extended :true }));
-
-const Costomer  = require("./models/customerscuma")
-const Mydata =require("./models/myscuma")
-app.set('view engine','ejs')
-app.use(express.static('public'))
-
-
-//*******************live reload *******
+const Customer  = require("./models/customerscuma")
+const Mydata = require("./models/myscuma");
 const livereload = require('livereload');
 const path = require('path');
-// Créer un serveur LiveReload
-const liveReloadServer = livereload.createServer();
-// Spécifie le répertoire à surveiller (par exemple, "public")
-liveReloadServer.watch(path.join(__dirname, 'public'));
+const methodOverride = require('method-override');
 const connectLivereload = require('connect-livereload');
-const { render } = require("ejs");
-const { redirect } = require("express/lib/response");
-const Customer = require("./models/customerscuma");
-// Ajouter le middleware connect-livereload
+const moment = require('moment');
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch(path.join(__dirname, 'public'));
+
+// Set up the view engine and static files
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+// Use method-override middleware
+app.use(methodOverride('_method')); // Corrected the spelling to '_method'
+
+// Add connect-livereload middleware
 app.use(connectLivereload());
-liveReloadServer.server.once("connection",() => {
+// LiveReload connection setup
+liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh('/');
-  },100)
-})
+  }, 100);
+});
+
+
+
+
 //*********************************** */
- // method Post
+
+
+ 
+ // ******************method Post
  app.post("/user/add.html", (req, res) => {
-     const costomer = new Costomer(req.body)
-     costomer.save().then(() => {
+     const customer = new Customer(req.body)
+     customer.save().then(() => {
       res.redirect("/")
      }).catch(() => {
       
-     })
-    
-   
-    
+     })   
   });
   
-  
+ // *******************method Get
 
 
-
-
-
- // method Get
-
- app.get("/user/add.html", (req, res) => {
-  res.render("user/add");
-  }
-  );
-
-  app.get("/user/edit.html", (req, res) => {
-    res.render("user/edit");
+  app.get("/edit/:id", (req, res) => {
+    Customer.findById(req.params.id).then((resulet) => {
+      res.render("user/edit" , {arr:resulet});
+    })
+    .catch((err) => {
+      console.log(err)    
+    }) 
       }
       );
   
 
 
-//affiche par customer par id 
-app.get("/user/:id", (req, res) => {
-  Customer.findById(req.params.id).then((resulet) => {
-    res.render("user/view", {arr:resulet});
-  })
-  
-  .catch((err) => {
-    console.log(err)
-  })
-  
-  }
-  );
-
-
-
  //affiche tous les datas 
 app.get("/", (req, res) => {
-  Costomer.find().then((resulet) => {
+  Customer.find().then((resulet) => {
     
-    res.render("index",{ arr :resulet});
+    res.render("index",{ arr :resulet , moment : moment});
   }).catch((err) => {
     console.log(err)
   })
@@ -93,9 +78,35 @@ app.get("/", (req, res) => {
 
 
 
+ // *******************method Delete
+ app.delete("/del/:id", (req, res) => {
+    console.log("c marche");
+  Customer.deleteOne({_id:req.params.id}).then(() => {
+    res.redirect("/");
+  })
+   .catch((err) => {
+    console.log(err)
+   })
+});
 
 
- 
+app.get("/user/add.html", (req, res) => {
+  res.render("user/add");
+  }
+  );
+
+//affiche par customer par id 
+app.get("/view/:id", (req, res) => {
+  Customer.findById(req.params.id).then((resulet) => {
+    res.render("user/view", {arr:resulet , moment : moment});
+  })
+  
+  .catch((err) => {
+    console.log(err)
+  })
+  
+  }
+  ); 
 
 
 

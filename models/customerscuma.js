@@ -11,8 +11,7 @@ const customerSchema = new Schema({
   Country : String,
   Gender : String
 
-
-});
+},{ timestamps: true }); //mongos Timestamp (Date e Time)
 
 //creaction modele
 const Customer = mongoose.model("customer", customerSchema);
