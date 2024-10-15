@@ -38,87 +38,88 @@
 
 
          <h2 style="text-align: left; margin-left: 40px; padding-top:20px">List of Customer</h2>
-        <table
-          style="width: 99%"
-          class="text-center mx-auto table mt-5 table-striped table-bordered"
-        >
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Full Name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Age</th>
-              <th scope="col">Country</th>      
-              <th scope="col">Telephone</th>        
-              <th scope="col">Email</th>
-              <th scope="col">Last updated</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <% arr.forEach((item , index) => { %>
-              <tr>
-                <th scope="row"><%= index + 1  %></th>
-                <td> <%= item.FirstName %> <%= item.LastName  %></td>
-                <td><%= item.Gender %></td>
-                <td> <%= item.Age %></td>
-                <td><%= item.Country %></td>
-                <td> <%= item.Telephone  %></td>
-                <td> <%= item.Email  %></td>
-                
-                
-                <td> <%= moment(item.updatedAt ).fromNow()%>  </td>
-                <td>
-                  <a
-                    data-bs-toggle="tooltip"
-                    data-bs-title="View details"
-                    data-bs-placement="top"
-                    class="btn btn-primary btn-sm"
-                    href="./view/<%= item._id %>"
-                    ><i class="bi bi-eye"></i
-                  ></a>
-  
-                  <a
-                    data-bs-toggle="tooltip"
-                    data-bs-title="Edit user"
-                    data-bs-placement="top"
-                    class="btn btn-primary btn-sm"
-                    href="./edit/<%= item._id %>"
-                  >
-                    <i class="bi bi-pencil"></i>  
-                  </a>
-
-                  <form action="/del/<%= item._id %>?_method=DELETE" method="POST"  style="display: inline">
-                    <button
-                     
-                      class="btn btn-danger btn-sm"
-                      data-bs-toggle="tooltip"
-                      data-bs-title="Delete user"
-                      data-bs-placement="top">
-                      <i class="bi bi-trash"></i> 
-                    </button>
-                  </form>
-                  
-                  </form>
-                  
-                  
-                </td> 
-              </tr>
-         
-              <% }) %>
-            
-      
-            
-      
-      
+           <% if (arr.length===0) { %>
+               <h1 style="text-align: center; margin: 100px;">no data to show</h1>
            
+            <% } else { %>
+
+              <table
+              style="width: 99%"
+              class="text-center mx-auto table mt-5 table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Country</th>      
+                  <th scope="col">Telephone</th>        
+                  <th scope="col">Email</th>
+                  <th scope="col">Last updated</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+    
+                <% arr.forEach((item , index) => { %>
+                  <tr>
+                    <th scope="row"><%= index + 1  %></th>
+                    <td> <%= item.FirstName %> <%= item.LastName  %></td>
+                    <td><%= item.Gender %></td>
+                    <td> <%= item.Age %></td>
+                    <td><%= item.Country %></td>
+                    <td> <%= item.Telephone  %></td>
+                    <td> <%= item.Email  %></td>
+                    
+                    
+                    <td> <%= moment(item.updatedAt ).fromNow()%>  </td>
+                    <td>
+                      <a
+                        data-bs-toggle="tooltip"
+                        data-bs-title="View details"
+                        data-bs-placement="top"
+                        class="btn btn-primary btn-sm"
+                        href="./view/<%= item._id %>"
+                        ><i class="bi bi-eye"></i
+                      ></a>
       
-      
-      
-      
-          </tbody>
-        </table>
+                      <a
+                        data-bs-toggle="tooltip"
+                        data-bs-title="Edit user"
+                        data-bs-placement="top"
+                        class="btn btn-primary btn-sm"
+                        href="./edit/<%= item._id %>"
+                      >
+                        <i class="bi bi-pencil"></i>  
+                      </a>
+    
+                      <form action="/del/<%= item._id %>?_method=DELETE" method="POST"  style="display: inline">
+                        <button
+                         
+                          class="btn btn-danger btn-sm"
+                          data-bs-toggle="tooltip"
+                          data-bs-title="Delete user"
+                          data-bs-placement="top">
+                          <i class="bi bi-trash"></i> 
+                        </button>
+                      </form>
+                      
+                      </form>
+                      
+                      
+                    </td> 
+                  </tr>
+             
+                  <% }) %>
+                
+
+              </tbody>
+             </table>
+             
+              <% } %>
+             
+        
    
        
         
