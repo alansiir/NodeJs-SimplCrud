@@ -40,8 +40,7 @@ liveReloadServer.server.once("connection", () => {
  
  // ******************method Post
  app.post("/user/add.html", (req, res) => {
-     const customer = new Customer(req.body)
-     customer.save().then(() => {
+     Customer.create(req.body).then(() => {
       res.redirect("/")
      }).catch(() => {
       
@@ -49,6 +48,18 @@ liveReloadServer.server.once("connection", () => {
   });
   
  // *******************method Get
+ app.put("/update/:id", (req, res) => {
+
+  Customer.updateOne({_id:req.params.id},req.body)
+  .then(() => {
+    res.redirect('/')
+   
+  }).catch((err) => {
+    console.log(err)
+    
+  })
+ 
+});
 
 
   app.get("/edit/:id", (req, res) => {
@@ -80,7 +91,6 @@ app.get("/", (req, res) => {
 
  // *******************method Delete
  app.delete("/del/:id", (req, res) => {
-    console.log("c marche");
   Customer.deleteOne({_id:req.params.id}).then(() => {
     res.redirect("/");
   })
@@ -88,6 +98,9 @@ app.get("/", (req, res) => {
     console.log(err)
    })
 });
+
+
+
 
 
 app.get("/user/add.html", (req, res) => {
@@ -119,13 +132,16 @@ app.get("/view/:id", (req, res) => {
 
 
 
+
+
+
 mongoose
 .connect("mongodb+srv://alansir101:zH7HEQuohYAAASDa@cluster0.shce2.mongodb.net/all-data?retryWrites=true&w=majority&appName=Cluster0")
 .then(() => {
 
   app.listen(port, () => {
     console.log(`http://localhost:${port}/`);
-    console.log(`branche ALA`);
+    
   });
 
 })

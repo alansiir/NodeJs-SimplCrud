@@ -118,11 +118,12 @@
 
 
 
-        <form class="mx-0 row gx-3 gy-4 mt-2">
+        <form  action="/update/<%= arr._id %>?_method=PUT" method="post" class="mx-0 row gx-3 gy-4 mt-2">
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
               value="<%= arr.FirstName %>"
+              name="FirstName"
               type="text"
               class="form-control"
               id="inputfirstName4"
@@ -132,6 +133,7 @@
             <label for="inputlastName4" class="form-label">Last Name:</label>
             <input
               value="<%= arr.LastName %>"
+              name="LastName"
               type="text"
               class="form-control"
               id="inputlastName4"
@@ -142,6 +144,7 @@
             <label for="inputemail4" class="form-label">Email:</label>
             <input
               value="<%= arr.Email %>"
+              name="Email"
               type="email"
               class="form-control"
               id="inputemail4"
@@ -150,6 +153,7 @@
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
             <input
+            name="Telephone"
               value="<%= arr.Telephone%>"
               type="number"
               class="form-control"
@@ -161,6 +165,7 @@
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
+              name="Age"
                 value="<%= arr.Age %>"
                 type="number"
                 class="form-control"
@@ -178,7 +183,8 @@
 
             <div class="col-md-6">
               <label for="inputCountry" class="form-label">Country:</label>
-              <select id="inputCountry" class="form-select" >
+              <select id="inputCountry" class="form-select" name="Country" >
+
                 
 
                 <option   > <%= arr.Country %></option>
@@ -193,8 +199,8 @@
           <div>
             <div class="col-md-6">
               <label for="inputGender" class="form-label">Gender:</label>
-              <select id="inputGender" class="form-select">
-              var  
+              <select id="inputGender" class="form-select" name="Gender">
+              
                 <option <%= arr.Gender === "Male" ? "selected" : "" %>>Male</option>
                 <option <%= arr.Gender === "Female" ? "selected" : "" %>>Female</option>
                 
@@ -203,9 +209,12 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary">
-              Update changes
-            </button>
+            
+              <button type="submit" class="btn btn-primary">
+                Update
+              </button>
+          
+            
             <button
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
